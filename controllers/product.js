@@ -5,49 +5,37 @@ try {
 // Create Product Function
 exports.create_product = (req,res)=>{
 
-    var V_id = req.body.p_id;
-    product.find({p_id:V_id},function(err,data) {
-        if(data.length>0) {
-            res.json({
-                success : false ,
-                message : "User Already Exists"
-            });
-        
+   
+    var obj = new product({
+        p_id: req.body.p_id,
+        p_name: req.body.p_name,
+        p_desc: req.body.p_desc,
+        p_image: req.body.p_image
+    
+    })
+
+    var product_data=req.body;
+    obj.save((err,data)=>{
+        if (!err) {      
+                if (err) res.send(err);
+                p_id = product_data.p_id,
+                p_name = product_data.p_name,
+                p_desc =  product_data.p_desc,
+                p_image = product_data.p_image
+                    res.json({
+                        success:true,
+                        message: 'product added successfully',
+                        data:{
+                            p_id:product_data.p_id,
+                            p_name:product_data.p_name,
+                            p_desc:product_data.p_desc,
+                            p_image:product_data.p_image
+                    
+                        }
+                    })
+        }else{
+            res.send(err);
         }
-    else {
-
-        var obj = new product({
-            p_id: req.body.p_id,
-            p_name: req.body.p_name,
-            p_desc: req.body.p_desc,
-            p_image: req.body.p_image
-        
-        })
-
-        var product_data=req.body;
-        obj.save((err,data)=>{
-            if (!err) {      
-                    if (err) res.send(err);
-                    p_id = product_data.p_id,
-                    p_name = product_data.p_name,
-                    p_desc =  product_data.p_desc,
-                    p_image = product_data.p_image
-                        res.json({
-                            success:true,
-                            message: 'product added successfully',
-                            data:{
-                                p_id:product_data.p_id,
-                                p_name:product_data.p_name,
-                                p_desc:product_data.p_desc,
-                                p_image:product_data.p_image
-                        
-                            }
-                        })
-            }else{
-                res.send(err);
-            }
-        })
-    }
     })
 }
 

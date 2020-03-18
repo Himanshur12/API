@@ -19,32 +19,35 @@ router.post('/login', function (req,res) {
 
 // Token Verification
 
-const checkAuth = (req, res, next) => {
-  var auth_head=req.headers['token'];
+// const checkAuth = (req, res, next) => {
+//   var auth_head=req.headers['token'];
 
-  if (typeof auth_head==='undefined') {
-   return res.json({
-      success : false ,
-      message : 'No Token Sent!'
-  });
+//   if (typeof auth_head==='undefined') {
+//    return res.json({
+//       success : false ,
+//       message : 'No Token Sent!'
+//   });
 
-  }
-  else
-  {
-          jwt.verify(auth_head,myKey, (err,data) =>{
-          if(err) {
-              console.log(err);
-              res.sendStatus(400);
-          }
-          })
-          next();
-  }
-}
-router.use(checkAuth);
+//   }
+//   else
+//   {
+//           jwt.verify(auth_head,myKey, (err,data) =>{
+//           if(err) {
+//               console.log(err);
+//               res.sendStatus(400);
+//           }
+//           })
+//           next();
+//   }
+// }
+// router.use(checkAuth);
 
 // Get User
 router.get('/:user_id', function (req, res) {
   Services.get_user(req,res)
+})
+router.get('/user/token', function (req, res) {
+  Services.get_userr(req,res)
 })
 
 //Delete User

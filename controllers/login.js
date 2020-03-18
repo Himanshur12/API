@@ -32,14 +32,15 @@ exports.login = (req,res)=>{
                             if(err) throw err;
                             if(isMatch){
                                 var token = jwt.sign({id:user_id,email:email,password:password},config.secret_token,{expiresIn: 60 * 60});
-                            res.send({
+
+                            res.json({
                                 success : true ,
                                 message : 'Login Successfully!',
                                 token : token
                             });
                             }
                             else
-                            res.send({
+                            res.json({
                                 success: false,
                                 message:'Incorrect Password!'
                             });
